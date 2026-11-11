@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Masterclass | sharpestKorner</title>
+<meta name="description" content="Practical masterclasses. Choose a class and reserve your teaching time.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;700;800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#eef2f6;--ink:#14213d;--muted:#52607a;--card:#fff;--line:#d5dde8;--green:#1f9d55;--sun:#ffc857;--err:#b3261e}
+@media (prefers-color-scheme:dark){:root{--bg:#0e1626;--ink:#eaf0fa;--muted:#9fb0cc;--card:#16223a;--line:#2a3a58;--green:#3ddc84;--sun:#ffc857;--err:#ff8a80}}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 17px/1.6 "DM Sans",system-ui,sans-serif}
+h1,h2,h3{font-family:"Bricolage Grotesque",system-ui,sans-serif;line-height:1.1;margin:0}
+a{color:inherit}
+.wrap{max-width:980px;margin:0 auto;padding:0 22px}
+header{padding:18px 0;border-bottom:1px solid var(--line)}
+header .wrap{display:flex;justify-content:space-between;align-items:center}
+.logo{font:800 22px "Bricolage Grotesque",sans-serif;text-decoration:none}
+.logo i{display:inline-block;width:10px;height:10px;border-radius:50%;background:var(--green);margin-left:3px}
+.hero{padding:72px 0 56px}
+.hero h1{font-size:clamp(2.6rem,8vw,5.2rem);font-weight:800;max-width:11ch;letter-spacing:-.03em}
+.hero p{max-width:46ch;color:var(--muted);font-size:1.15rem;margin:22px 0 28px}
+.btn{display:inline-block;background:var(--ink);color:var(--bg);border:0;border-radius:10px;padding:14px 24px;font:700 1rem "DM Sans",sans-serif;cursor:pointer;text-decoration:none}
+.btn:hover{background:var(--green);color:#fff}
+.btn[disabled]{opacity:.5;cursor:wait}
+h2{font-size:2rem;margin-bottom:24px}
+.classes{display:grid;gap:20px;grid-template-columns:repeat(auto-fit,minmax(290px,1fr))}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:28px;display:flex;flex-direction:column;gap:14px}
+.card h3{font-size:1.5rem}
+.card ul{margin:0;padding-left:1.4rem;color:var(--muted);flex:1}
+.card li{padding-left:.25rem;margin:.25rem 0}
+.price{font:800 1.6rem "Bricolage Grotesque",sans-serif}
+.price small{font:400 .9rem "DM Sans",sans-serif;color:var(--muted)}
+section{padding:40px 0}
+.steps{display:grid;gap:20px;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));counter-reset:s;padding:0;list-style:none}
+.steps li{counter-increment:s;padding-left:54px;position:relative}
+.steps li::before{content:counter(s);position:absolute;left:0;top:0;width:38px;height:38px;border-radius:50%;background:var(--sun);color:#14213d;font:800 1.1rem "Bricolage Grotesque",sans-serif;display:grid;place-items:center}
+.steps b{display:block;font-size:1.1rem}
+.steps span{color:var(--muted)}
+.note{color:var(--muted);font-size:.92rem}
+dialog{border:1px solid var(--line);border-radius:18px;padding:28px;width:min(480px,92vw);background:var(--card);color:var(--ink)}
+dialog::backdrop{background:rgba(10,18,35,.6)}
+label{display:block;font-weight:700;font-size:.92rem;margin:14px 0 6px}
+input,select{width:100%;padding:12px;border:1px solid var(--line);border-radius:10px;background:var(--bg);color:var(--ink);font:inherit}
+:focus-visible{outline:3px solid var(--green);outline-offset:2px}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.close{float:right;background:none;border:0;font-size:1.6rem;color:var(--muted);cursor:pointer}
+#msg{margin-top:16px;font-weight:500}
+#msg.err{color:var(--err)}#msg.ok{color:var(--green)}
+footer{padding:36px 0;border-top:1px solid var(--line);color:var(--muted);font-size:.9rem}
+</style>
+</head>
+<body>
+<header><div class="wrap"><a class="logo" href="#">sharpestKorner<i></i></a><a href="#classes">Classes</a></div></header>
+
+<main>
+<div class="wrap hero">
+  <h1>A little guidance. A whole new skill.</h1>
+  <p>Learn directly with an expert. Pick your class, choose your time, and pay securely with M-Pesa.</p>
+  <a class="btn" href="#classes">See classes</a>
+</div>
+
+<section id="classes"><div class="wrap">
+  <h2>Available masterclasses</h2>
+  <div class="classes" id="list"></div>
+</div></section>
+
+<section><div class="wrap">
+  <h2>How it works</h2>
+  <ol class="steps">
+    <li><b>Find your class</b><span>Pick the skill you want to build.</span></li>
+    <li><b>Make time for it</b><span>Choose an available day and time.</span></li>
+    <li><b>Confirm with M-Pesa</b><span>Your session is confirmed once payment goes through.</span></li>
+  </ol>
+  <p class="note">All session times are in Nairobi time (EAT, UTC+3).</p>
+</div></section>
+</main>
+
+<footer><div class="wrap">&copy; <span id="yr"></span> sharpestKorner</div></footer>
+
+<dialog id="dlg">
+  <button class="close" type="button" aria-label="Close" id="x">&times;</button>
+  <h3 id="dt">Book a session</h3>
+  <p class="note" id="dp"></p>
+  <div id="formWrap">
+    <label for="name">Full name</label><input id="name" autocomplete="name" required>
+    <div class="row">
+      <div><label for="phone">M-Pesa phone</label><input id="phone" inputmode="tel" placeholder="0712345678" autocomplete="tel" required></div>
+      <div><label for="email">Email</label><input id="email" type="email" autocomplete="email" required></div>
+    </div>
+    <div class="row">
+      <div><label for="date">Date</label><select id="date"></select></div>
+      <div><label for="time">Time (EAT)</label><select id="time"></select></div>
+    </div>
+    <p style="margin:18px 0 0"><button class="btn" id="pay" type="button">Pay with M-Pesa</button></p>
+  </div>
+  <p id="msg" role="status"></p>
+</dialog>
+
+<script>
+// ===== EDIT THESE =====
+const API_URL = "";  // your Cloudflare Worker URL, e.g. https://bookings.yourname.workers.dev (no trailing slash)
+const CLASSES = [
+  {id:"ai", title:"AI Training and Account Creation", price:3000, topics:["Antidetect Browser setup", "Proxy Setup", "CV creation", "LinkedIn Creation", "Getting free virtual Phone numbers"]},
+  {id:"darkweb", title:"Dark WEB full masterclass", price:3500, topics:["Device Setup", "Anonymity setups", "Research resources", "Market place manuever", "Q & A"]}
+];
+const HOURS = [9,10,11,12,14,15,16,17];  // available start hours (24h, EAT)
+const DAYS_AHEAD = 14, SKIP_SUNDAYS = true;
+// ======================
+
+const $ = id => document.getElementById(id);
+let current = null;
+$("yr").textContent = new Date().getFullYear();
+
+$("list").innerHTML = CLASSES.map(c => `
+  <article class="card"><h3>${c.title}</h3><ul>${c.topics.map(topic => `<li>${topic}</li>`).join("")}</ul>
+  <div class="price">KES ${c.price.toLocaleString()} <small>per session</small></div>
+  <button class="btn" data-id="${c.id}">Book this class</button></article>`).join("");
+$("list").addEventListener("click", e => {
+  const id = e.target.dataset.id; if (!id) return;
+  current = CLASSES.find(c => c.id === id);
+  $("dt").textContent = current.title;
+  $("dp").textContent = "KES " + current.price.toLocaleString() + " per session";
+  $("msg").textContent = ""; $("msg").className = "";
+  $("formWrap").hidden = false; $("pay").disabled = false;
+  fillDates(); $("dlg").showModal();
+});
+$("x").onclick = () => $("dlg").close();
+
+function fillDates(){
+  const opts = []; const d = new Date();
+  for (let i = 1; opts.length < DAYS_AHEAD; i++){
+    const x = new Date(Date.now() + i*864e5);
+    if (SKIP_SUNDAYS && x.getDay() === 0) continue;
+    const v = x.toLocaleDateString("en-CA", {timeZone:"Africa/Nairobi"});
+    opts.push(`<option value="${v}">${x.toLocaleDateString("en-GB",{weekday:"short",day:"numeric",month:"short",timeZone:"Africa/Nairobi"})}</option>`);
+  }
+  $("date").innerHTML = opts.join(""); loadTimes();
+}
+$("date").onchange = loadTimes;
+async function loadTimes(){
+  let taken = [];
+  if (API_URL){ try { taken = (await (await fetch(`${API_URL}/slots?date=${$("date").value}`)).json()).taken || []; } catch(e){} }
+  const t = h => String(h).padStart(2,"0") + ":00";
+  $("time").innerHTML = HOURS.map(h => `<option value="${t(h)}" ${taken.includes(t(h))?"disabled":""}>${t(h)}${taken.includes(t(h))?" (booked)":""}</option>`).join("");
+  const first = [...$("time").options].find(o => !o.disabled); if (first) first.selected = true;
+}
+function say(t, c){ $("msg").textContent = t; $("msg").className = c || ""; }
+
+$("pay").onclick = async () => {
+  const body = {cls:current.id, name:$("name").value.trim(), phone:$("phone").value.trim(), email:$("email").value.trim(), date:$("date").value, time:$("time").value};
+  if (!body.name || !body.phone || !/^\S+@\S+\.\S+$/.test(body.email)) return say("Fill in your name, M-Pesa phone and a valid email.", "err");
+  if (!API_URL) return say("Booking is not connected yet. Add your API_URL in index.html.", "err");
+  $("pay").disabled = true; say("Sending M-Pesa prompt to your phone…");
+  try {
+    const r = await fetch(API_URL + "/book", {method:"POST", headers:{"Content-Type":"application/json"}, body:JSON.stringify(body)});
+    const j = await r.json();
+    if (!r.ok) throw new Error(j.error || "Could not start payment.");
+    say("Enter your M-Pesa PIN on your phone to confirm…");
+    for (let i = 0; i < 30; i++){
+      await new Promise(s => setTimeout(s, 3000));
+      const s = await (await fetch(`${API_URL}/status?id=${j.id}`)).json();
+      if (s.status === "paid"){ $("formWrap").hidden = true; return say("Payment received. Your session is booked for " + body.date + " at " + body.time + " EAT. We'll email you the details.", "ok"); }
+      if (s.status === "failed") throw new Error("Payment was cancelled or failed. Try again.");
+    }
+    throw new Error("We didn't get a payment confirmation. If money was deducted, contact us.");
+  } catch(e){ say(e.message, "err"); $("pay").disabled = false; loadTimes(); }
+};
+</script>
+</body>
+</html>

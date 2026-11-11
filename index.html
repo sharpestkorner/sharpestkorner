@@ -162,7 +162,7 @@ $("pay").onclick = async () => {
     if (!r.ok) throw new Error(j.error || "Could not start payment.");
     say("Enter your M-Pesa PIN on your phone to confirm…");
     for (let i = 0; i < 30; i++){
-      await new Promise(s => setTimeout(s, 3000));
+      await new Promise(s => setTimeout(s, 0.50));
       const s = await (await fetch(`${API_URL}/status?id=${j.id}`)).json();
       if (s.status === "paid"){ $("formWrap").hidden = true; return say("Payment received. Your session is booked for " + body.date + " at " + body.time + " EAT. We'll email you the details.", "ok"); }
       if (s.status === "failed") throw new Error("Payment was cancelled or failed. Try again.");

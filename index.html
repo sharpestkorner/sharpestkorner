@@ -33,6 +33,9 @@ h2{font-size:2rem;margin-bottom:24px}
 .card h3{font-size:1.5rem}
 .card ul{margin:0;padding-left:1.4rem;color:var(--muted);flex:1}
 .card li{padding-left:.25rem;margin:.25rem 0}
+.card-bullets li{margin:6px 0}
+.badge{align-self:flex-start;background:var(--sun);color:#14213d;border-radius:999px;padding:4px 10px;font-size:.78rem;font-weight:700;line-height:1.2}
+.old-price{color:var(--muted);font-size:1rem;font-weight:500;text-decoration:line-through;margin-right:8px}
 .price{font:800 1.6rem "Bricolage Grotesque",sans-serif}
 .price small{font:400 .9rem "DM Sans",sans-serif;color:var(--muted)}
 section{padding:40px 0}
@@ -105,9 +108,9 @@ footer{padding:36px 0;border-top:1px solid var(--line);color:var(--muted);font-s
 // ===== EDIT THESE =====
 const API_URL = "https://sharpestkorner.atienoochola123.workers.dev";
 const CLASSES = [
+  {id:"clipping", title:"Stream/Video Clipping", oldPrice:3000, price:1500, badge:"50% OFF", desc:"GTA 6 launches this week and streamers will be everywhere. Learn to turn streams and videos into short clips people watch.", bullets:["AI clipping: find the best moments automatically","CapCut clipping: edit clips for TikTok, Reels and Shorts","Whop: join paid clipping campaigns and understand the rules","Setting up your creator accounts the right way, following each platform's rules","GTA 6 stream clipping tips for launch week"]},
   {id:"ai", title:"AI Training and Account Creation", price:3000, topics:["Antidetect Browser setup", "Proxy Setup", "CV creation", "LinkedIn Creation", "Getting free virtual Phone numbers"]},
-  {id:"darkweb", title:"Dark WEB full masterclass", price:3500, topics:["Device Setup", "Anonymity setups", "Research resources", "Market place manuever", "Q & A"]},
-  {id:"clipping", title:"Video Clipping", price:1500, desc:"Turn long videos into short clips that earn. Covers AI clipping tools, CapCut editing, getting paid through Whop, and setting up your creator accounts properly, including how proxies fit in and what each platform allows."}
+  {id:"darkweb", title:"Dark WEB full masterclass", price:3500, topics:["Device Setup", "Anonymity setups", "Research resources", "Market place manuever", "Q & A"]}
 ];
 const HOURS = [9,10,11,12,14,15,16,17];  // available start hours (24h, EAT)
 const DAYS_AHEAD = 14, SKIP_SUNDAYS = true;
@@ -118,8 +121,8 @@ let current = null;
 $("yr").textContent = new Date().getFullYear();
 
 $("list").innerHTML = CLASSES.map(c => `
-  <article class="card"><h3>${c.title}</h3>${c.desc ? `<p>${c.desc}</p>` : `<ul>${c.topics.map(topic => `<li>${topic}</li>`).join("")}</ul>`}
-  <div class="price">KES ${c.price.toLocaleString()} <small>per session</small></div>
+  <article class="card">${c.badge ? `<span class="badge">${c.badge}</span>` : ""}<h3>${c.title}</h3>${c.desc ? `<p>${c.desc}</p>` : ""}${c.bullets ? `<ul class="card-bullets">${c.bullets.map(bullet => `<li>${bullet}</li>`).join("")}</ul>` : (!c.desc ? `<ul>${c.topics.map(topic => `<li>${topic}</li>`).join("")}</ul>` : "")}
+  <div class="price">${c.oldPrice ? `<span class="old-price">KES ${c.oldPrice.toLocaleString()}</span>` : ""}KES ${c.price.toLocaleString()} <small>per session</small></div>
   <button class="btn" data-id="${c.id}">Book this class</button></article>`).join("");
 $("list").addEventListener("click", e => {
   const id = e.target.dataset.id; if (!id) return;

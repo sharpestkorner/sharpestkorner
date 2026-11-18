@@ -7,6 +7,7 @@
 const CLASSES = {
   ai: { title: "AI Training and Account Creation", price: 3000 },
   darkweb: { title: "Dark WEB full masterclass", price: 3500 },
+  clipping: { title: "Video Clipping", price: 1500 },
 };
 
 const cors = env => ({
